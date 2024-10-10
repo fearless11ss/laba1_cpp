@@ -2,6 +2,8 @@
 #include <fstream>
 #include <string>
 #include <vector>
+#include <ctime>
+
 using namespace std;
 // Create file
 
@@ -121,44 +123,86 @@ void PowerHack() {
 
 int main()
 {
+    ofstream f1;
+    f1.open("log.txt", ios::app);
+    if (f1.is_open() == true) 
+    {
+        time_t timestamp;
+        time(&timestamp);
+        f1 << ctime(&timestamp) << "\t";
+        f1 << "Программа запущена" << endl << endl;
+    }
+    else 
+    {
+        cout << "Не удалось открыть файл" << endl;
+    }
     cout << "print --help to see tips\n";
     while (true) {
         string userCommand;
         getline(cin, userCommand);
 
         if (userCommand == "--help") {
+            time_t timestamp;
+            time(&timestamp);
+            f1 << ctime(&timestamp) << "\t";
+            f1 << "Вызвана команда --help" << endl << endl;
             Help();
             continue;
         }
 
         if (userCommand == "cf") {
+            time_t timestamp;
+            time(&timestamp);
+            f1 << ctime(&timestamp) << "\t";
+            f1 << "Создан новый файл" << endl << endl;
             CreateFile();
             continue;
         }
 
         if (userCommand == "rf") {
+            time_t timestamp;
+            time(&timestamp);
+            f1 << ctime(&timestamp) << "\t";
+            f1 << "Произошло чтение файла" << endl << endl;
             ReadFile();
             continue;
         }
 
         if (userCommand == "wf") {
+            time_t timestamp;
+            time(&timestamp);
+            f1 << ctime(&timestamp) << "\t";
+            f1 << "Произведена запись в файл" << endl << endl;
             WriteFile();
             continue;
         }
 
         if (userCommand == "cmd") {
+            time_t timestamp;
+            time(&timestamp);
+            f1 << ctime(&timestamp) << "\t";
+            f1 << "Вызвана консоль" << endl << endl;
             Console();
             continue;
         }
 
         if (userCommand == "exit") {
+            time_t timestamp;
+            time(&timestamp);
+            f1 << ctime(&timestamp) << "\t";
+            f1 << "Программа завершила свою работу" << endl << endl;
             break;
         }
 
         if (userCommand == "ph") {
+            time_t timestamp;
+            time(&timestamp);
+            f1 << ctime(&timestamp) << "\t";
+            f1 << "Вызван PowerShell" << endl << endl;
             PowerHack();
         }
 
     }
+    f1.close();
 
 }
